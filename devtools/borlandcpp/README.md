@@ -12,6 +12,18 @@ This folder documents the setup, environment, and integration path for the Borla
 
 ---
 
+## 📦 Full Environment Backup
+
+To streamline setup across lab or virtual machines, this repo includes a ZIP archive (`bcc_bc5.zip`) of the **entire working Borland IDE** environment. While the original ISO is ~175MB across floppies, this snapshot ensures:
+
+- No missing tools or headers
+- OWL library and Help files intact
+- Fast deployment without manual installs
+
+> This archive is synced from a working lab machine where Borland was fully installed and tested.
+
+---
+
 ## 🧱 Folder Contents
 
 | Folder        | Purpose                                        |
