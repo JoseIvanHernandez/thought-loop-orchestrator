@@ -5,10 +5,10 @@ using namespace std;
 
 void drawKnots(int count) {
     if (count == 0) {
-        cout << "--- (no knots)\n"
+        cout << "--- (no knots)\n";
         return;
     }
-    for (int 1 = 0; i < count; i++) {
+    for (int i = 0; i < count; i++) {
         cout << "@ ";
     }
     cout << "\n";
@@ -32,7 +32,7 @@ int main() {
     int tens = (number / 10) % 10;
     int ones = number % 10;
 
-    cout << "n\Visual Quipu for " << number << ":\n";
+    cout << "\nVisual Quipu for " << number << ":\n";
     cout << "Hundreds (" << hundreds << "): ";
     drawKnots(hundreds);
 
