@@ -1,85 +1,24 @@
-#include <iostream>
-#include <cstdlib>     // for system()
-#include <filesystem>  // C++17 and up
-#include <fstream>     // for file presence
-#include <vector>
+# launch_gui.ps1 - Simple Borland-style GUI mockup using local HTML
+$dashboard = @"
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hackfrontier Scanner</title>
+  <style>
+    body { background-color: #111; color: #0f0; font-family: 'Courier New'; padding: 20px; }
+    .box { border: 2px solid #0f0; padding: 20px; margin: 10px; }
+    h1 { color: #0ff; }
+  </style>
+</head>
+<body>
+  <h1>🚀 Hackfrontier Retro Dashboard</h1>
+  <div class='box'>✅ Tools Verified: bcc.exe, tlink.exe, dfa.exe</div>
+  <div class='box'>📡 Live Feeds Loaded: OK</div>
+  <div class='box'>🧠 Next Step: Data Scan Ready</div>
+</body>
+</html>
+"@
 
-// Modular headers
-#include "init.h"
-#include "feeds.h"
-#include "pointers.h"
-#include "dataset.h"
-
-namespace fs = std::filesystem;
-
-// Local file check helper
-bool fileExists(const std::string& path) {
-    return fs::exists(path);
-}
-
-int main() {
-    std::cout << "🔧 Starting BorlandCPP Hackfrontier Scanner...\n";
-
-    // 🔍 Phase 1: Scan for Borland Executables
-    std::cout << "🔍 Scanning Borland Directory...\n";
-    std::vector<std::string> tools = { "bcc.exe", "tlink.exe", "dfa.exe" };
-    bool missing = false;
-
-    for (const auto& tool : tools) {
-        std::string path = "../devtools/" + tool;
-        if (!fileExists(path)) {
-            std::cout << "⚠️  Missing: " << tool << "\n";
-            missing = true;
-        }
-    }
-
-    if (missing) {
-        std::cout << "⚠️  Missing critical Borland tools. Attempting to fetch...\n";
-    #ifdef _WIN32
-        system("powershell -ExecutionPolicy Bypass -File fetchBorlandTools.ps1");
-    #else
-        system("pwsh -ExecutionPolicy Bypass -File fetchBorlandTools.ps1");
-    #endif
-    } else {
-        std::cout << "✅ All Borland tools present.\n";
-    }
-
-    // 📡 Phase 2: Load Feed & Dataset Pointers
-    std::cout << "📡 Loading Live Feeds & Dataset Pointers...\n";
-
-    if (fileExists("../feeds/live_feeds.json")) {
-        std::cout << "📁 Found live_feeds.json\n";
-        loadFeeds();
-    } else {
-        std::cout << "❌ Missing: feeds/live_feeds.json\n";
-        std::cout << "📡 Booting Feed Loader...\n";
-        std::cout << "📡 Feed Loader booted successfully.\n";
-    }
-
-    if (fileExists("../data/pointers/dataset_links.ps1")) {
-        std::cout << "📁 Found dataset_links.ps1\n";
-        loadDatasetPointers();
-    } else {
-        std::cout << "❌ Missing: dataset_links.ps1\n";
-    }
-
-    // 🧪 Optional: Launch GUI if everything is ready
-    if (!missing && fileExists("launch_gui.ps1")) {
-        std::cout << "🚀 Launching GUI using launch_gui.ps1...\n";
-    #ifdef _WIN32
-        int result = system("powershell -ExecutionPolicy Bypass -File launch_gui.ps1");
-    #else
-        int result = system("pwsh -ExecutionPolicy Bypass -File launch_gui.ps1");
-    #endif
-        if (result == 0) {
-            std::cout << "✅ GUI launched successfully.\n";
-        } else {
-            std::cout << "❌ Failed to launch GUI. Return code: " << result << "\n";
-        }
-    } else if (!fileExists("launch_gui.ps1")) {
-        std::cout << "⚠️  launch_gui.ps1 not found.\n";
-    }
-
-    std::cout << "🛠️  Scan complete. Ready to begin analysis.\n";
-    return 0;
-}
+$tempPath = "$env:TEMP\hackfrontier_gui.html"
+$dashboard | Set-Content -Path $tempPath
+Start-Process $tempPath
