@@ -54,6 +54,8 @@ if (missing) {
     } else {
         std::cout << "❌ Missing: feeds/live_feeds.json\n";
         std::cout << "📡 Booting Feed Loader...\n";
+        // If you need to use 'liveFeeds', declare and initialize it here.
+        // Example: std::vector<Feed> liveFeeds;
         std::cout << "📡 Feed Loader booted successfully.\n";
     }
 
