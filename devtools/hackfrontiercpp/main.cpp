@@ -21,28 +21,29 @@ int main() {
     std::cout << "🔧 Starting BorlandCPP Hackfrontier Scanner...\n";
 
     // 🔍 Phase 1: Scan for Borland Executables
-    std::cout << "🔍 Scanning Borland Directory...\n";
-    std::vector<std::string> tools = { "bcc.exe", "tlink.exe", "dfa.exe" };
-    bool missing = false;
+std::cout << "🔍 Scanning Borland Directory...\n";
+std::vector<std::string> tools = { "bcc.exe", "tlink.exe", "dfa.exe" };
+bool missing = false;
 
-    for (const auto& tool : tools) {
-        std::string path = "../devtools/" + tool;
-        if (!fileExists(path)) {
-            std::cout << "⚠️  Missing: " << tool << "\n";
-            missing = true;
-        }
+for (const auto& tool : tools) {
+    std::string path = "../devtools/" + tool;
+    if (!fileExists(path)) {
+        std::cout << "⚠️  Missing: " << tool << "\n";
+        missing = true;
     }
+}
 
-    if (missing) {
-        std::cout << "⚠️  Missing critical Borland tools. Attempting to fetch...\n";
-    #ifdef _WIN32
-        system("powershell -ExecutionPolicy Bypass -File fetchBorlandTools.ps1");
-    #else
-        system("pwsh -ExecutionPolicy Bypass -File fetchBorlandTools.ps1");
-    #endif
-    } else {
-        std::cout << "✅ All Borland tools present.\n";
-    }
+if (missing) {
+    std::cout << "⚠️  Missing critical Borland tools. Attempting to pull from OneDrive...\n";
+#ifdef _WIN32
+    system("powershell -ExecutionPolicy Bypass -File \"../windows/pull-borland-executables.ps1\"");
+#else
+    system("pwsh -ExecutionPolicy Bypass -File \"../windows/pull-borland-executables.ps1\"");
+#endif
+} else {
+    std::cout << "✅ All Borland tools present.\n";
+}
+
 
     // 📡 Phase 2: Load Feed & Dataset Pointers
     std::cout << "📡 Loading Live Feeds & Dataset Pointers...\n";
