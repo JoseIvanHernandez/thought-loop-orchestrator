@@ -1,6 +1,6 @@
 #ifndef POINTERS_H
 #define POINTERS_H
 
-void loadDatasetPointers();
+void loadDatasetPointers(); // declaration only
 
 #endif

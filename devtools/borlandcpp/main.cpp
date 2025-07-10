@@ -1,13 +1,14 @@
 #include <iostream>
 #include <cstdlib>     // for system()
 #include <filesystem>  // C++17 and up
-#include <fstream>     // for reading file presence
+#include <fstream>     // for file presence
+#include <vector>
 
-// Modular headers for future logic
+// Modular headers
 #include "init.h"
 #include "feeds.h"
 #include "pointers.h"
-#include "dataset.h" // add this for dataset loading
+#include "dataset.h"
 
 namespace fs = std::filesystem;
 
@@ -19,9 +20,9 @@ bool fileExists(const std::string& path) {
 int main() {
     std::cout << "🔧 Starting BorlandCPP Hackfrontier Scanner...\n";
 
-    // 🔍 Phase 1: Scan Borland Executables
+    // 🔍 Phase 1: Scan for Borland Executables
     std::cout << "🔍 Scanning Borland Directory...\n";
-    std::string tools[] = { "bcc.exe", "tlink.exe", "dfa.exe" };
+    std::vector<std::string> tools = { "bcc.exe", "tlink.exe", "dfa.exe" };
     bool missing = false;
 
     for (const auto& tool : tools) {
@@ -34,32 +35,49 @@ int main() {
 
     if (missing) {
         std::cout << "⚠️  Missing critical Borland tools. Attempting to fetch...\n";
-#ifdef _WIN32
+    #ifdef _WIN32
         system("powershell -ExecutionPolicy Bypass -File fetchBorlandTools.ps1");
-#else
-        std::cout << "⚠️  PowerShell automation skipped. Run fetchBorlandTools.ps1 manually in Windows.\n";
-#endif
+    #else
+        system("pwsh -ExecutionPolicy Bypass -File fetchBorlandTools.ps1");
+    #endif
     } else {
         std::cout << "✅ All Borland tools present.\n";
     }
 
-    // 📡 Phase 2: Load Feed and Dataset Links
+    // 📡 Phase 2: Load Feed & Dataset Pointers
     std::cout << "📡 Loading Live Feeds & Dataset Pointers...\n";
-    std::ifstream feeds("../feeds/live_feeds.json");
-    std::ifstream datasets("../data/pointers/dataset_links.ps1"); // Replace with JSON when ready
 
-    if (feeds) {
+    if (fileExists("../feeds/live_feeds.json")) {
         std::cout << "📁 Found live_feeds.json\n";
-        loadFeeds(); // Modular call (stubbed or real)
+        loadFeeds();
     } else {
         std::cout << "❌ Missing: feeds/live_feeds.json\n";
+        std::cout << "📡 Booting Feed Loader...\n";
+        std::cout << "📡 Feed Loader booted successfully.\n";
     }
 
-    if (datasets) {
-        std::cout << "📁 Found dataset_links.ps1 (or pointers)\n";
-        loadDatasetPointers(); // Modular call (stubbed or real)
+    if (fileExists("../data/pointers/dataset_links.ps1")) {
+        std::cout << "📁 Found dataset_links.ps1\n";
+        loadDatasetPointers();
     } else {
         std::cout << "❌ Missing: dataset_links.ps1\n";
+    }
+
+    // 🧪 Optional: Launch GUI if everything is ready
+    if (!missing && fileExists("launch_gui.ps1")) {
+        std::cout << "🚀 Launching GUI using launch_gui.ps1...\n";
+    #ifdef _WIN32
+        int result = system("powershell -ExecutionPolicy Bypass -File launch_gui.ps1");
+    #else
+        int result = system("pwsh -ExecutionPolicy Bypass -File launch_gui.ps1");
+    #endif
+        if (result == 0) {
+            std::cout << "✅ GUI launched successfully.\n";
+        } else {
+            std::cout << "❌ Failed to launch GUI. Return code: " << result << "\n";
+        }
+    } else if (!fileExists("launch_gui.ps1")) {
+        std::cout << "⚠️  launch_gui.ps1 not found.\n";
     }
 
     std::cout << "🛠️  Scan complete. Ready to begin analysis.\n";
