@@ -7,6 +7,7 @@
 #include "init.h"
 #include "feeds.h"
 #include "pointers.h"
+#include "dataset.h" // add this for dataset loading
 
 namespace fs = std::filesystem;
 
