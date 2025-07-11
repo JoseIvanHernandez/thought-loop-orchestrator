@@ -1,2 +1,16 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/MRzWHAwE)
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=19777330)
+# 🧠 Thought Loop Orchestrator
+
+A PowerShell-based system for automating, tracking, and structuring reflective thought loops during C++ and Hackathon workflows.
+
+## 📁 Scripts Included
+- `run_thought_loop_setup.bat` – Kickstarts the orchestration setup
+- `initialize_thought_loop_folders.ps1` – Creates your folder structure
+- `tag_thought_loop_folders.ps1` – Adds metadata tags to folders
+- `generate_dataset_status.ps1` – Summarizes current progress/state
+- `data_ingest.ps1`, `update_feeds.ps1`, etc. – (Optional plugins)
+
+## 🛠 Setup
+```bash
+git clone https://github.com/JoseIvanHernandez/thought-loop-orchestrator.git
+cd thought-loop-orchestrator
+run_thought_loop_setup.bat
