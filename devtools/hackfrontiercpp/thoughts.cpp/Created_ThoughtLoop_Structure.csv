@@ -1,0 +1,10 @@
+Folder,File,Description
+Discovery,README.txt,"📘 Welcome to the Discovery phase. This is where we notice, observe, and gather unmet needs."
+Discovery,map_insights.txt,"🧠 Map insights from community interactions, raw thoughts, and observational logs."
+Discovery,thought_tags.csv,"tag,type,source"
+Decision,README.txt,🧭 Decision phase. Translate observations into structured priorities and mapped responses.
+Decision,logic_routes.txt,IF insight A → THEN resource B → EXPECT outcome C
+Decision,decision_flows.csv,"trigger,action,next_step"
+Action,README.txt,"🚀 Action phase. Trigger responses, visualize interventions, and reinforce successful cycles."
+Action,outreach_playbook.txt,"💡 Examples: Warm handoff script, mobile deployment checklist, human-in-the-loop backup."
+Action,feedback_loops.csv,"action,result,followup"
