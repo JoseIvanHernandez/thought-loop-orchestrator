@@ -1,4 +1,4 @@
-#include <iostream>
+
 #include <cstdlib>     // for system()
 #include <filesystem>  // C++17 and up
 #include <fstream>     // for file presence
@@ -80,9 +80,9 @@ if (missing) {
             std::cout << "❌ Failed to launch GUI. Return code: " << result << "\n";
         }
     } else if (!fileExists("launch_gui.ps1")) {
+
         std::cout << "⚠️  launch_gui.ps1 not found.\n";
     }
-
     std::cout << "🛠️  Scan complete. Ready to begin analysis.\n";
     return 0;
 }
